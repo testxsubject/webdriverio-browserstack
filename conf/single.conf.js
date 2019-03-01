@@ -9,9 +9,16 @@ exports.config = {
   exclude: [],
 
   capabilities: [{
-    browser: 'Chrome',
-    name: 'single_test',
-    build: 'webdriver-browserstack'
+    'browserName': 'Firefox',
+    'browserstack.use_w3c': true,
+    'bstack:options': {
+      'os': 'Windows',
+      'osVersion': '7',
+      'sessionName': 'single_test',
+      'buildName': 'webdriver-browserstack',
+      'projectName': 'Test App',
+      'debug': true,
+    },
   }],
 
   logLevel: 'warn',
