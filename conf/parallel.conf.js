@@ -10,21 +10,26 @@ exports.config = {
 
   maxInstances: 10,
   commonCapabilities: {
-    name: 'parallel_test',
-    build: 'webdriver-browserstack'
+    'browserstack.use_w3c': true,
+    'bstack:options': {
+      'sessionName': 'parallel_test',
+      'buildName': 'webdriver-browserstack',
+      'projectName': 'Test App',
+      'debug': true,
+    },
   },
 
   capabilities: [{
-    browser: 'chrome'
+    browserName: 'chrome'
   },{
-    browser: 'firefox'
+    browserName: 'firefox'
   },{
-    browser: 'internet explorer'
+    browserName: 'internet explorer'
   },{
-    browser: 'safari'
+    browserName: 'safari'
   }],
 
-  logLevel: 'verbose',
+  logLevel: 'warn',
   coloredLogs: true,
   screenshotPath: './errorShots/',
   baseUrl: '',
@@ -33,6 +38,11 @@ exports.config = {
   connectionRetryCount: 3,
   host: 'hub.browserstack.com',
   
+  before: function () {
+    var chai = require('chai');
+    global.expect = chai.expect;
+    chai.Should();
+  },
   framework: 'mocha',
   mochaOpts: {
       ui: 'bdd'
@@ -41,6 +51,6 @@ exports.config = {
 
 // Code to support common capabilities
 exports.config.capabilities.forEach(function(caps){
-  for(var i in exports.config.commonCapabilities) caps[i] = caps[i] || exports.config.commonCapabilities[i];
+    Object.assign(caps, exports.config.commonCapabilities);
 });
 

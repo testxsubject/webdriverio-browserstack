@@ -9,12 +9,19 @@ exports.config = {
   exclude: [],
 
   capabilities: [{
-    browser: 'chrome',
-    name: 'single_test',
-    build: 'webdriver-browserstack'
+    'browserName': 'Firefox',
+    'browserstack.use_w3c': true,
+    'bstack:options': {
+      'os': 'Windows',
+      'osVersion': '7',
+      'sessionName': 'single_test',
+      'buildName': 'webdriver-browserstack',
+      'projectName': 'Test App',
+      'debug': true,
+    },
   }],
 
-  logLevel: 'verbose',
+  logLevel: 'warn',
   coloredLogs: true,
   screenshotPath: './errorShots/',
   baseUrl: '',
@@ -22,9 +29,15 @@ exports.config = {
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
   host: 'hub.browserstack.com',
-  
+
+  before: function () {
+    var chai = require('chai');
+    global.expect = chai.expect;
+    chai.Should();
+  },
   framework: 'mocha',
   mochaOpts: {
-      ui: 'bdd'
-  }
+    ui: 'bdd',
+    timeout: 60000
+  },
 }
