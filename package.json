@@ -9,8 +9,6 @@
     "parallel": "./node_modules/.bin/wdio conf/parallel.conf.js",
     "local": "./node_modules/.bin/wdio conf/local.conf.js"
   },
-  "author": "BrowserStack",
-  "license": "GPL v3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/browserstack/webdriverio-browserstack.git"
