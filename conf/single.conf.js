@@ -9,7 +9,7 @@ exports.config = {
   exclude: [],
 
   capabilities: [{
-    browser: 'Chrome',
+    browserName: 'Chrome',
     name: 'single_test',
     build: 'browserstack-build-1'
   }],
@@ -21,7 +21,7 @@ exports.config = {
   waitforTimeout: 10000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
-  host: 'hub.browserstack.com',
+  host: 'hub-cloud.browserstack.com',
 
   before: function () {
     var chai = require('chai');

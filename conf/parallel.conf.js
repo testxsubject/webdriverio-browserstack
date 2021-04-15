@@ -15,13 +15,13 @@ exports.config = {
   },
 
   capabilities: [{
-    browser: 'chrome'
+    browserName: 'chrome'
   },{
-    browser: 'firefox'
+    browserName: 'firefox'
   },{
-    browser: 'internet explorer'
+    browserName: 'internet explorer'
   },{
-    browser: 'safari'
+    browserName: 'safari'
   }],
 
   logLevel: 'warn',
@@ -31,7 +31,7 @@ exports.config = {
   waitforTimeout: 10000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
-  host: 'hub.browserstack.com',
+  host: 'hub-cloud.browserstack.com',
 
   before: function () {
     var chai = require('chai');
@@ -40,7 +40,8 @@ exports.config = {
   },
   framework: 'mocha',
   mochaOpts: {
-      ui: 'bdd'
+      ui: 'bdd',
+      timeout: 60000
   },
 
   // Code to mark the status of test on BrowserStack based on the assertion status
