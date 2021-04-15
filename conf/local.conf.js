@@ -11,7 +11,7 @@ exports.config = {
   exclude: [],
 
   capabilities: [{
-    browser: 'chrome',
+    browserName: 'chrome',
     name: 'local_test',
     build: 'browserstack-build-1',
     'browserstack.local': true
@@ -24,7 +24,7 @@ exports.config = {
   waitforTimeout: 10000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
-  host: 'hub.browserstack.com',
+  host: 'hub-cloud.browserstack.com',
 
   before: function () {
     var chai = require('chai');
@@ -58,7 +58,7 @@ exports.config = {
     } else {
       browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "At least 1 assertion failed"}}');
     }
-  }
+  },
 
   // Code to stop browserstack local after end of test
   onComplete: function (capabilties, specs) {
