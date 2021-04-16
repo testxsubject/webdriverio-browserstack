@@ -1,22 +1,19 @@
 describe("Google's Search Functionality", () => {
   it("can find search results", () => {
     browser.url("https://www.google.com/ncr");
-    const inputForm = $('[name="q"]');
-    inputForm.setValue("BrowserStack");
+    const inputForm = $("//input[@name='q']");
+    inputForm.setValue(["BrowserStack", "Enter"]); // this helps in majority desktops
 
     try {
-      const submitButton = $('[name="btnK"]');
-      submitButton.waitForExist(8000);
-      submitButton.click(); // this works for desktop
+      browser.waitUntil(() => browser.getTitle().match(/BrowserStack/i));
     } catch (e) {
-      browser.elementSubmit(inputForm.elementId); // this helps for mobile
+      browser.elementSubmit(inputForm.elementId); // this helps in remaining cases, i.e. iPhone
     }
 
     browser.waitUntil(
       () => browser.getTitle().match(/BrowserStack/i),
       5000,
-      "Title didn't match with BrowserStack",
-      5
+      "Title didn't match with BrowserStack"
     );
   });
 });
