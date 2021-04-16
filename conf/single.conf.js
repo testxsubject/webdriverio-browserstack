@@ -8,11 +8,17 @@ exports.config = {
   ],
   exclude: [],
 
-  capabilities: [{
-    browserName: 'Chrome',
-    name: 'single_test',
-    build: 'browserstack-build-1'
-  }],
+  capabilities: [
+    {
+      browserName: 'Chrome',
+      'bstack:options': {
+        os: "Windows",
+        osVersion: "10",
+        sessionName: 'single_test',
+        buildName: 'browserstack-build-1'
+      },
+    }
+  ],
 
   logLevel: 'warn',
   coloredLogs: true,

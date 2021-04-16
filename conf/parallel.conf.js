@@ -10,8 +10,11 @@ exports.config = {
 
   maxInstances: 10,
   commonCapabilities: {
-    name: 'parallel_test',
-    build: 'browserstack-build-1'
+    'bstack:options': {
+      sessionName: 'parallel_test',
+      buildName: 'browserstack-build-1',
+      debug: true
+    }
   },
 
   capabilities: [{
