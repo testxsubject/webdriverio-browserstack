@@ -10,12 +10,18 @@ exports.config = {
   ],
   exclude: [],
 
-  capabilities: [{
-    browserName: 'chrome',
-    name: 'local_test',
-    build: 'browserstack-build-1',
-    'browserstack.local': true
-  }],
+  capabilities: [
+    {
+      browserName: 'Chrome',
+      'bstack:options' : {
+        os : "Windows",
+        osVersion : "10",
+        sessionName: 'local_test',
+        buildName: 'browserstack-build-1',
+        local: true
+      },
+    }
+  ],
 
   logLevel: 'warn',
   coloredLogs: true,
