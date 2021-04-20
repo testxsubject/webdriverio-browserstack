@@ -10,13 +10,8 @@ exports.config = {
 
   maxInstances: 10,
   commonCapabilities: {
-    'browserstack.use_w3c': true,
-    'bstack:options': {
-      'sessionName': 'parallel_test',
-      'buildName': 'webdriver-browserstack',
-      'projectName': 'Test App',
-      'debug': true,
-    },
+    name: 'parallel_test',
+    build: 'browserstack-build-1'
   },
 
   capabilities: [{
@@ -36,8 +31,8 @@ exports.config = {
   waitforTimeout: 10000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
-  host: 'hub.browserstack.com',
-  
+  host: 'hub-cloud.browserstack.com',
+
   before: function () {
     var chai = require('chai');
     global.expect = chai.expect;
@@ -45,7 +40,17 @@ exports.config = {
   },
   framework: 'mocha',
   mochaOpts: {
-      ui: 'bdd'
+      ui: 'bdd',
+      timeout: 60000
+  },
+
+  // Code to mark the status of test on BrowserStack based on the assertion status
+  afterTest: function (test, context, { error, result, duration, passed, retries }) {
+    if(passed) {
+      browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Assertions passed"}}');
+    } else {
+      browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "At least 1 assertion failed"}}');
+    }
   }
 }
 
@@ -53,4 +58,3 @@ exports.config = {
 exports.config.capabilities.forEach(function(caps){
     Object.assign(caps, exports.config.commonCapabilities);
 });
-
