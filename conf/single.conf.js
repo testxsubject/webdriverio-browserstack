@@ -8,18 +8,17 @@ exports.config = {
   ],
   exclude: [],
 
-  capabilities: [{
-    'browserName': 'Firefox',
-    'browserstack.use_w3c': true,
-    'bstack:options': {
-      'os': 'Windows',
-      'osVersion': '7',
-      'sessionName': 'single_test',
-      'buildName': 'webdriver-browserstack',
-      'projectName': 'Test App',
-      'debug': true,
-    },
-  }],
+  capabilities: [
+    {
+      browserName: 'Chrome',
+      'bstack:options': {
+        os: "Windows",
+        osVersion: "10",
+        sessionName: 'single_test',
+        buildName: 'browserstack-build-1'
+      },
+    }
+  ],
 
   logLevel: 'warn',
   coloredLogs: true,
@@ -28,7 +27,7 @@ exports.config = {
   waitforTimeout: 10000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
-  host: 'hub.browserstack.com',
+  host: 'hub-cloud.browserstack.com',
 
   before: function () {
     var chai = require('chai');
@@ -40,4 +39,13 @@ exports.config = {
     ui: 'bdd',
     timeout: 60000
   },
+
+  // Code to mark the status of test on BrowserStack based on the assertion status
+  afterTest: function (test, context, { error, result, duration, passed, retries }) {
+    if(passed) {
+      browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Assertions passed"}}');
+    } else {
+      browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "At least 1 assertion failed"}}');
+    }
+  }
 }
